@@ -70,6 +70,29 @@ def change_contact():
     else:
         print("Контакт не найден.")
 
+def delete_contact():
+    name_to_delete = input("Введите имя или фамилию контакта для удаления: ").title()
+    with open('book.txt', 'r', encoding='utf-8') as file:
+        data = file.read().strip().split('\n\n')
+    
+    found = False
+    updated_contacts = []
+    
+    for item in data:
+        new_item = item.replace('\n', ' ').split()
+        if name_to_delete in new_item[:2]: 
+            found = True
+            print("Контакт для удаления найден:")
+            print(item)
+        else:
+            updated_contacts.append(item)
+
+    if found:
+        with open('book.txt', 'w', encoding='utf-8') as file:
+            file.write('\n\n'.join(updated_contacts))
+        print("Контакт успешно удален.")
+    else:
+        print("Контакт не найден.")
 
 
 def search_line():
